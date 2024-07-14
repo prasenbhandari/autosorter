@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import os
 import shutil
+import sys
 
-
-def sorting(path):
+def sort_folder(path):
 
     extensions = {"mp4": 'Videos',
                   "mov": 'Videos',
@@ -46,11 +46,9 @@ def sorting(path):
                 shutil.move(os.path.join(path, filename), os.path.join(target_path, filename))
 
 
-location = input("Are you in the directory you want to sort(y/n): ")
 
-if location.lower() == "y":
-    sorting(os.getcwd())
-
+if len(sys.argv) > 1:
+    sort_folder(sys.argv[-1].replace("~", f"/home/{os.getlogin()}"))
 else:
-    directory_path = input("Enter the path to the directory: ")
-    sorting(directory_path)
+    sort_folder(os.getcwd())
+
