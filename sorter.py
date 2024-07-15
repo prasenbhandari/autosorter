@@ -23,7 +23,7 @@ def sort_folder(path):
                   "xls": 'Documents',
                   "xlsx": 'Documents',
                   "ppt": 'Documents',
-                  "pptx": 'Documnets',
+                  "pptx": 'Documents',
                   "zip": 'Archive',
                   "rar": 'Archive',
                   "7z": 'Archive',
@@ -34,13 +34,13 @@ def sort_folder(path):
     for filename in os.listdir(path):
 
         if os.path.isfile(os.path.join(path, filename)):
-            file_extension = filename.split(".")[-1]
+            file_extension = filename.split(".")[-1].lower()
 
             if file_extension in extensions:
                 target_folder = extensions[file_extension]
                 target_path = os.path.join(path, target_folder)
 
-                if target_folder not in os.listdir(path):
+                if not os.path.exists(target_path):
                     os.mkdir(target_path)
 
                 shutil.move(os.path.join(path, filename), os.path.join(target_path, filename))
